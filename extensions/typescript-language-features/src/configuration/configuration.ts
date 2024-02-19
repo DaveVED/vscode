@@ -120,7 +120,7 @@ export interface TypeScriptServiceConfiguration {
 	readonly watchOptions: Proto.WatchOptions | undefined;
 	readonly includePackageJsonAutoImports: 'auto' | 'on' | 'off' | undefined;
 	readonly enableTsServerTracing: boolean;
-	readonly localNodePath: string | null;
+	readonly localNodePath: { path: string | null; isTrusted: boolean };
 	readonly globalNodePath: string | null;
 	readonly workspaceSymbolsExcludeLibrarySymbols: boolean;
 }
@@ -157,7 +157,7 @@ export abstract class BaseServiceConfigurationProvider implements ServiceConfigu
 			watchOptions: this.readWatchOptions(configuration),
 			includePackageJsonAutoImports: this.readIncludePackageJsonAutoImports(configuration),
 			enableTsServerTracing: this.readEnableTsServerTracing(configuration),
-			localNodePath: this.readLocalNodePath(configuration),
+			localNodePath: { path: this.readLocalNodePath(configuration), isTrusted: true },
 			globalNodePath: this.readGlobalNodePath(configuration),
 			workspaceSymbolsExcludeLibrarySymbols: this.readWorkspaceSymbolsExcludeLibrarySymbols(configuration),
 		};
